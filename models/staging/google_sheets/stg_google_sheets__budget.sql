@@ -1,8 +1,11 @@
-{{
-  config(
-    materialized='view'
-  )
-}}
+{{ config(
+    materialized='incremental',
+    incremental_strategy='microbatch',
+    event_time='date_load',
+    begin='2024-10-25',
+    batch_size='day',
+    lookback=2
+) }}
 
 WITH src_budget AS (
     SELECT * 

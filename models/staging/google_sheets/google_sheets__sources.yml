@@ -2,9 +2,10 @@ version: 2
 
 sources:
 
+
   - name: google_sheets # name of the source 
     schema: google_sheets # this is the schema our raw data lives in
-    database: ALUMNO999_DEV_BRONZE_DB # this is the name of our database
+    database: "{{ env_var('DBT_ENVIRONMENTS') }}_BRONZE_DB" # this is the name of our database
 
     quoting:
       database: false
@@ -18,6 +19,8 @@ sources:
     tables:
 
       - name: budget
+        config:
+          event_time: _fivetran_synced
         loaded_at_field: _fivetran_synced
         description: >
           Data about budget in demo.
